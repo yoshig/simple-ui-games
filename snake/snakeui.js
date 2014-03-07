@@ -28,8 +28,15 @@
 	View.prototype.step = function() {
 		this.$el.children("div").remove();
 		this.snake.move();
-		var boardInst = this.board.render();
-		this.drawBoard(boardInst);
+    if (this.gameOver()) {
+      alert("You lose")
+      this.board = new SG.Board(20,20);
+      console.log(this.board)
+      this.snake = this.board.snake;
+    } else {
+  		var boardInst = this.board.render();
+  		this.drawBoard(boardInst);
+    }
 	};
 
 	View.prototype.drawBoard = function(board) {
@@ -51,7 +58,22 @@
 			View.FRAME_RATE
 		);
 	};
+
+  View.prototype.gameOver = function() {
+    var head = this.snake.head();
+    var board = this.board;
+    if (head[0] < 0 || head[0] > board.dimX ||
+         head[1] < 0 || head[1] > board.dimY) {
+      return true;
+    } else {
+      return false;
+    };
+  };
+
 })(this)
+
+
+var that = this;
 
 $(function() {
 

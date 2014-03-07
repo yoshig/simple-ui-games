@@ -4,17 +4,20 @@
 	var Board = SG.Board = function(dimX, dimY) {
 		this.dimX = dimX;
 		this.dimY = dimY;
-		this.snake = new SG.Snake();
+		this.snake = new SG.Snake(dimX, dimY);
 
 	};
 
-	Board.prototype.addSnake = function(grid) {
-		var snake = this.snake.segs
-		for (var i = 0; i < snake.length; i++) {
-			var x = snake[i][0];
-			var y = snake[i][1];
+	Board.prototype.addPieces = function(grid) {
+    var snake = this.snake
+		var segs = snake.segs
+    var apple = snake.apple
+		for (var i = 0; i < segs.length; i++) {
+			var x = segs[i][0];
+			var y = segs[i][1];
 			grid[x][y] = "S"
 		}
+    grid[apple[0]][apple[1]] = "A"
 	};
 
 	Board.prototype.render = function() {
@@ -26,7 +29,7 @@
 			}
 		};
 
-		this.addSnake(grid)
+		this.addPieces(grid)
 
 
 		return this.flatten(grid)

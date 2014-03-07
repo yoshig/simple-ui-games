@@ -1,9 +1,12 @@
 (function (root) {
   var SG = root.SG = (root.SG || {});
 
-	var Snake = SG.Snake = function() {
+	var Snake = SG.Snake = function(dimX, dimY) {
 		this.dir = "S";
 		this.segs = [[0,0],[0,1],[0,2]];
+    this.apple = [3, 3];
+    this.dimX = dimX;
+    this.dimY = dimY;
 	};
 
 	Snake.DELTA = {
@@ -17,13 +20,27 @@
 
 	Snake.prototype.move = function() {
 		var move = Snake.DELTA[this.dir]
-		var head = this.segs[this.segs.length - 1];
-		var new_head = [move[0] + head[0], move[1] + head[1]];
+		var new_head = [move[0] + this.head()[0], move[1] + this.head()[1]];
 		this.segs.push(new_head);
-		this.segs = this.segs.slice(1);
+
+    if (new_head[0] === this.apple[0] && new_head[1] === this.apple[1]) {
+      this.apple = this.newApple
+    } else {
+      this.segs = this.segs.slice(1);
+    }
 	};
 
 	Snake.prototype.turn = function(newDir) {
 		this.dir = newDir;
 	};
+
+  Snake.prototype.head = function() {
+    return this.segs[this.segs.length - 1];;
+  };
+
+  Snake.prototype.newApple = function() {
+    this.apple = [Math.floor(Math.random()*dimX), Math.floor(Math.random()*dimY)]
+    console.log(apple)
+  };
+
 })(this)
