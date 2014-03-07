@@ -1,0 +1,48 @@
+.container {
+  height: 500px;
+	width: 800px;
+	background: blue;
+	position: absolute;
+	top: 20px;
+}
+
+.pile {
+	height: 95%;
+	width: 30%;
+	background: yellow;
+	float: left;
+	border: black 3px solid;
+	margin: 10px;
+	position: relative;
+	top: 0px;
+}
+
+.small {
+	height: 50px;
+	width: 30%;
+	background: black;
+/*	float: bottom left;*/
+	position: absolute;
+	bottom: 200px;
+	left: 75px;
+}
+
+.med {
+	height: 50px;
+	width: 50%;
+	background: black;
+/*	float: bottom left;*/
+	position: absolute;
+	bottom: 100px;
+	left: 50px;
+}
+
+.large {
+	height: 50px;
+	width: 90%;
+	background: black;
+/*	float: bottom left;*/
+	position: absolute;
+	bottom: 0px;
+	left: 10px;
+}
