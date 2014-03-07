@@ -6,6 +6,9 @@
 	top: 20px;
 }
 
+.disc{
+	height:1px;
+}
 .pile {
 	height: 95%;
 	width: 30%;
@@ -45,4 +48,8 @@
 	position: absolute;
 	bottom: 0px;
 	left: 10px;
+}
+
+.selected{
+	border: 3px solid red;
 }

@@ -37,15 +37,17 @@
 	GameUI.prototype.handleStartTowerClick = function(event) {
 		var that = this;
 		var game = this.game;
-		var startTower = $(event.target).data("id");
-		console.log(startTower);
+		var $tower_div = $(event.target)
+		$tower_div.toggleClass("selected")
+
+		var startTower = $tower_div.data("id");
 
 		this.board.find('.pile').off("click");
 
 		this.board.find('.pile').on("click", function(e) {
 			var endTower = $(e.target).data("id");
-			console.log(endTower);
 			that.board.find('.pile').off("click");
+			$tower_div.toggleClass("selected")
 			that.takeTurn(+startTower, +endTower);
 		});
 	};
