@@ -1,41 +1,56 @@
-var Snake = require('./snake.js');
-
 (function (root) {
   var SG = root.SG = (root.SG || {});
 
-	var DIM_X = 10;
-	var DIM_Y = 10;
-
-	var Board = SG.Board = function() {
-		this.grid = new Array(DIM_X);
-
-		for(var row = 0; row < this.grid.length; row++) {
-			this.grid[row] = new Array(DIM_Y);
-			for(var col = 0; col < this.grid[row].length; col++) {
-				this.grid[row][col] = null;
-			}
-		};
-
-		this.snake = new Snake();
+	var Board = SG.Board = function(dimX, dimY) {
+		this.dimX = dimX;
+		this.dimY = dimY;
+		this.snake = new SG.Snake();
 
 	};
 
-	Board.prototype.addSnake = function() {
+	Board.prototype.addSnake = function(grid) {
 		var snake = this.snake.segs
 		for (var i = 0; i < snake.length; i++) {
 			var x = snake[i][0];
 			var y = snake[i][1];
-			this.grid[x][y] = "S"
+			grid[x][y] = "S"
 		}
 	};
 
+	Board.prototype.render = function() {
+		var grid = new Array(this.dimX)
+		for(var row = 0; row < this.dimX; row++) {
+			grid[row] = new Array(this.dimY);
+			for(var col = 0; col < this.dimY; col++) {
+				grid[row][col] = null;
+			}
+		};
+
+		this.addSnake(grid)
+
+
+		return this.flatten(grid)
+	};
+
+	Board.prototype.flatten = function(board) {
+		flatBoard = [];
+		for (var i = 0; i < board.length; i ++) {
+			for (var j = 0; j < board[0].length; j ++) {
+			  flatBoard.push(board[i][j]);
+			}
+		}
+		return flatBoard;
+	};
+
+
 	Board.prototype.draw = function() {
+		var grid = this.createBoard();
 		that = this;
 
-		for(var row = 0; row < this.grid.length; row++) {
+		for(var row = 0; row < grid.length; row++) {
 			var rowStr = "";
-			for(var col = 0; col < this.grid[row].length; col++) {
-				if (this.grid[row][col] === "S") {
+			for(var col = 0; col < grid[row].length; col++) {
+				if (grid[row][col] === "S") {
 					rowStr += "S ";
 				} else {
 					rowStr += "* ";
@@ -43,14 +58,7 @@ var Snake = require('./snake.js');
 			}
 			console.log(rowStr);
 		};
-	};
-
-	Board.prototype.render = function() {
-		this.addSnake();
-		this.draw();
+		console.log("                 ")
 	};
 
 })(this)
-
-var board = new this.SG.Board();
-board.render();

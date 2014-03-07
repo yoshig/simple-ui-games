@@ -6,21 +6,24 @@
 		this.segs = [[0,0],[0,1],[0,2]];
 	};
 
-	var DELTA = {
-		N: [0,-1],
-		E: [1,0],
-		W: [-1,0],
+	Snake.DELTA = {
+		N: [-1,0],
+		E: [0,1],
+		W: [0,-1],
 		S: [1, 0]
 	}
 
+	Snake.MARK = "S"
+
 	Snake.prototype.move = function() {
-		var move = this.DELTA[dir]
-		this.coords = [move[0] + this.coords[0], move[1] + this.coords[1]]
+		var move = Snake.DELTA[this.dir]
+		var head = this.segs[this.segs.length - 1];
+		var new_head = [move[0] + head[0], move[1] + head[1]];
+		this.segs.push(new_head);
+		this.segs = this.segs.slice(1);
 	};
 
 	Snake.prototype.turn = function(newDir) {
 		this.dir = newDir;
 	};
-
-	module.exports = Snake;
 })(this)
