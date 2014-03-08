@@ -18,7 +18,6 @@
 	}
 
 	View.prototype.handleKeyEvent = function(event) {
-		console.log(View.KEYS[event.keyCode])
 		if (View.KEYS[event.keyCode]) {
 			this.board.snake.turn(View.KEYS[event.keyCode]);
 		} else {
@@ -31,7 +30,6 @@
     if (this.gameOver()) {
       alert("You lose")
       this.board = new SG.Board(20,20);
-      console.log(this.board)
       this.snake = this.board.snake;
     } else {
   		var boardInst = this.board.render();
@@ -43,8 +41,10 @@
 		for (var i = 0; i < board.length; i++){
 			if (board[i] === null) {
 				this.$el.append('<div class="cell"></div>');
-			} else {
+			} else if (board[i] === "S") {
 				this.$el.append('<div class="snake"></div>');
+			} else {
+			  this.$el.append('<div class="apple"></div>');
 			}
 		}
 	};
@@ -62,8 +62,10 @@
   View.prototype.gameOver = function() {
     var head = this.snake.head();
     var board = this.board;
+    // console.log(this.snake.hitBody());
     if (head[0] < 0 || head[0] > board.dimX ||
-         head[1] < 0 || head[1] > board.dimY) {
+        head[1] < 0 || head[1] > board.dimY ||
+        this.snake.hitBody()) {
       return true;
     } else {
       return false;

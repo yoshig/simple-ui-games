@@ -12,6 +12,7 @@
     var snake = this.snake
 		var segs = snake.segs
     var apple = snake.apple
+
 		for (var i = 0; i < segs.length; i++) {
 			var x = segs[i][0];
 			var y = segs[i][1];
